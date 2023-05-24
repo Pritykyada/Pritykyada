@@ -218,6 +218,15 @@ void fibbo(int x)
     }
 }*/
 
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+    extern int a;
+    //a=36;
+    printf("%d",a);
+}
+int a=34;
 /*8. Write a function to print PASCAL Triangle. (TSRN)*/
 /*#include<stdio.h>
 void pascal(int);

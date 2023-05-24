@@ -1,6 +1,20 @@
 #include<stdio.h>
+#include<conio.h>
+int main()
+{
+   
+    switch ( getch())
+    {
+    case 40 :
+        printf("enter char cter");
+        break;
+    
+    default:
+        break;
+    }
 
-int serij(int);
+}
+/*int serij(int);
 int fact(int );
 
 int main()
@@ -35,4 +49,4 @@ int serij(int c)
 
 
 
-}
+}*/

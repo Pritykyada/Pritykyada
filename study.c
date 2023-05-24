@@ -1,17 +1,101 @@
 
+/*#include<stdio.h>
+int main()
+{
+   int * p[2];
+    int a[10]={2,4,5,6,7,8,9,5,7};
+    int b[5]={2,4,5,6,7};
+    p[0]=a;
+    p[1]=b;
+    printf("%d ",p[0][3]);
+    printf("%d ",*(*p+3));
+    printf("%d ",*(p[0]+3));
+    printf("%d ",(*(p+0))[3]);
+
+}*/
 #include<stdio.h>
+#include<conio.h>
+void display(int *);
+int main()
+{
+  int(*p)[4];
+  int a[4][4],count=0;
+  p=a;
+  int *space;
+  space=*(a+3)+3;
+  int  arr[16]={1,3,4,6,
+                7,8,4,5,
+                6,7,8,3,
+                5,6,2, };
+  for(int i=0;i<4;i++)
+  {
+    for(int j=0;j<4;j++)
+    {
+      a[i][j]=arr[count];
+      count++;
+    }
+  }
+  for(int i=0;i<4;i++)
+  {
+    for(int j=0;j<4;j++)
+    {
+      if(i==3&&j==3)
+      {
+        a[3][3]=32;
+        printf("%c",a[i][j]);
+      }
+      else
+      {
+          printf("%d ",a[i][j]);
+      }
+    }
+  printf("\n");
+  printf("enter chacter");
+  getch();
+  switch (getch())
+  {
+  case 80:
+  {
+      int *up_num;
+      up_num=space-sizeof(p);
+      int * temp;
+      temp=space;
+      space=up_num;
+      up_num=temp;
+      *p[space]=space;
+      void display(p);
 
 
+  }
+    break;
+  
+  default:
+    break;
+  }
 
+}
+}
+void display(int *p)
+{
+  for(int i=0;i<3;i++)
+  {
+    for (int j=0;j<3;j++)
+    {
+      printf("|%4d ",p[i][j]);
+    }
+    printf("|");
+    printf("\n");
+  }
 
+}
 /*int pascal(int );
 int  main()
 {
     printf("prityhhn\bkyada");//delete one element
     printf("wellcome\rsd");//sdllcome
       printf("wellcome\fsd");//work like \n
-      printf("wellcome\nsd");
       printf("\\wellcome\nsd\\");
+      printf("wellcome\nsd");
      printf("\"wellcome\nsd\"");
    printf("\'priteekyada\'");
     printf("%%d",2);*/
