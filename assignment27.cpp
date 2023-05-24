@@ -47,8 +47,8 @@ class complex
         return temp;
     }
    bool operator==(complex c)
-   {      
-        return  num1==c.num1 && num2==c.num2;   
+   {
+        return  num1==c.num1 && num2==c.num2;
    }
 };
 int main()
@@ -65,7 +65,7 @@ int main()
     cout<<"comparison is a:"<<(c1==c2);
 }*/
 
-//2. Write a C++ program to overload unary operators that is increment and decrement
+// 2. Write a C++ program to overload unary operators that is increment and decrement
 /*#include<iostream>
 using namespace std;
 class unary
@@ -99,8 +99,8 @@ class unary
         }
         friend unary operator++(unary,int);
       friend  unary operator--(unary ,int);
-     
-        
+
+
 };
 unary operator--(unary y,int  p)
 {
@@ -134,8 +134,8 @@ int main()
     return 0;
 }*/
 
-//3. Write a C++ program to add two complex numbers using operator overloaded by a
-//friend function.
+// 3. Write a C++ program to add two complex numbers using operator overloaded by a
+// friend function.
 /*#include<iostream>
 using namespace std;
 class complex
@@ -167,10 +167,72 @@ int main()
     complex c(3,5),c2(5,9),c3;
     c.showdata();
     c2.showdata();
-    
+
     c3=c+c2;
     c3.showdata();
     return 0;
 }*/
+/*4. Create a class Time which contains:
+- Hours
+- Minutes
+- Seconds
+Write a C++ program using operator overloading for the following:
+1. = = : To check whether two Times are the same or not.
+2. >> : To accept the time.
+3. << : To display the time*/
+#include <iostream>
+using namespace std;
+class time
+{
+public:
+    int hour;
+    int minute;
+    int second;
 
+public:   
+    void operator==(time y)
+        {
+        cout<<"==============================="<<endl;
+        if(hour==y.hour && second==y.second  && minute==y.minute)
+        {
+            cout<<"times are equal";
+        }
+        else
+        {
+            cout<<"times are not equal";
+        }
+        }
+    friend void operator>>(istream &,time &);
+    friend void operator<<(ostream &,time &);
+};
 
+void operator>>(istream &cin,time &t)
+{
+    cout<<"enter hour:";
+    cin>>t.hour;
+    cout<<"enter minute:";
+    cin>>t.minute;
+    cout<<"enter second:";
+    cin>>t.second;
+}
+void operator<<(ostream &cout,time &p)
+{
+    cout<<"hour:"<<p.hour<<endl<<"minute:"<<p.minute<<endl<<"second"<<p.second<<endl;
+}
+int main()
+{
+    time t1, t2;
+    bool a;
+    cout<<"enter first time"<<endl;
+    cout<<"==============================="<<endl;
+    cin>>t1;
+    cout<<"enter second time"<<endl;
+    cout<<"==============================="<<endl;
+    cin>>t2;
+    cout<<" first time:";
+    cout<<t1;
+    cout<<" second time:";
+    cout<<t2;
+    t1==t2;
+
+}
