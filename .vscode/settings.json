@@ -3,7 +3,11 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "functional": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "typeinfo": "cpp",
+        "limits": "cpp",
+        "*.tcc": "cpp",
+        "iterator": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
