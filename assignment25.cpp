@@ -77,61 +77,100 @@ using namespace std;
 class fact
 {
     private:
-        int fact=1;
+        int fact;
+        int n;
     public:
-        void factorial(int);
-        void showdata()
+        void setdata(int data)
         {
-            cout<<"factorial of number"<<fact;
+            n=data;
+        }
+        void factorial();
+        int getN()
+        {
+            return n;
+        }
+        int getdata()
+        {
+            return fact;
         }
 };
-void fact::factorial(int num)
+void fact::factorial()
 {
-    for(num;num>1;num--)
+    int f=1;
+    if(n<=0)
     {
-        fact=fact*num;
+        fact=1;
+        return;
     }
+    for(int i=1;i<=n;i++)
+    {
+        f=f*i;
+    }
+    fact =f;
 }
 int main()
 {
-    fact f;
-    f.factorial(5);
-    f.showdata();
+    fact  fa;
+    fa.setdata(5);
+    fa.factorial();
+    cout<<"factorial of a "<<fa.getN()<<"is a"<<fa.getdata();
 }*/
 
-/*4. Define a class LargestNumber and define an instance member function to find the
-Largest of three Numbers using the class.*/
+/*4. Define a class maxestNumber and define an instance member function to find the
+maxest of three Numbers using the class.*/
 /*#include<iostream>
 using namespace std;
-class large
+class maxe
 {
     private:
-        int large;
+        int a,b,c;
+        int max;
     public:
-        void showdata(int a,int b,int c)
+        maxe(int x,int y,int z)
+        {
+            a=x;
+            b=y;
+            c=z;
+        }
+        void cal_data()
         {
             if(a>b)
             {
                 if(a>c)
-                    large=a;
+                    max=a;
                 else
-                    large=c;
+                    max=c;
             }
             else
             {
                 if(b>c)
-                    large=b;
+                    max=b;
                 else
-                    large=c;
+                    max=c;
             }
-            cout<<"large is a "<<large;
         }
-
+        int getval()
+        {
+            return max;
+        }
+        int geta()
+        {
+            return a;
+        }
+        int getb()
+        {
+            return b;
+        }
+        int getc()
+        {
+            return c;
+        }
 };
 int main()
 {
-    large l1;
-    l1.showdata(23,566,78);
+    maxe l1(4,6,7);
+    l1.cal_data();
+    cout<<"maxest value from "<<l1.geta()<<","<<l1.getb()<<","<<l1.getc()<<"is"<<l1.getval();
 }*/
 
 /*5. Define a class ReverseNumber and define an instance member function to find
@@ -142,29 +181,38 @@ using namespace std;
 class rev
 {
     private:
-        int reverece=0;
+        int reverece;
+        int n;
     public:
-        void reverce(int num)
+        rev(int data)
         {
-            while(num)
-            {       
-                reverece=num%10+reverece*10;
-                num=num/10;
-            }
+            n=data;
         }
-        void show()
+        void reverce()
         {
-            cout<<"reverce is a==>"<<reverece;
+            int  val=n;
+            int ans=0;
+            while(val)
+            {       
+                ans=val%10+ans*10;
+                val=val/10;
+            }
+            reverece=ans;        
+        }
+        int getn()
+        {
+            return n;
+        }
+        int getreverce()
+        {
+            return reverece;
         }
 };
 int main()
 {
-    rev r1;
-    int r;
-    cout<<"enter number";
-    cin>>r;
-    r1.reverce(r);
-    r1.show();
+    rev r1(780);
+    r1.reverce();
+    cout<<"reverce of "<<r1.getn()<<" is a:"<<r1.getreverce();
 }*/
 
 
@@ -176,17 +224,29 @@ class square
 {
     public:
         int squr;
+        int n;
         static int call;
     public:
-        void processdata(int num)
+        void setN(int data)
         {
-            squr=num*num;
-            cout<<squr;
+            n=data;
+        }
+        int getn()
+        {
+            return n;
+        }
+        void processdata()
+        {
+            squr=n*n;
             call++;
         }
-      static  void showdata()
+        static int call_data()
         {
-                cout<<"function call"<<call;
+            return call;
+        }
+       int getval()
+        {
+            return squr;
         }
 };
 int square::call;
@@ -196,52 +256,74 @@ int main()
     int data;
     cout<<"Enter number";
     cin>>data;
-    s.processdata(data);
+    s.setN(data);
+    s.processdata();
     cout<<"Enter number";
     cin>>data;
-     s2.processdata(data);
-     square::showdata();
+    s2.setN(data);
+    s2.processdata();
+    cout<<"squre of a "<<s.getn()<<" is "<<s.getval()<<endl;
+    cout<<"squre of a "<<s2.getn()<<" is "<<s2.getval()<<endl;
+    cout<<"call data is a "<<square::call_data();
 }*/
 
-/*7. Define a class Greatest and define instance member function to find Largest among
+/*7. Define a class Greatest and define instance member function to find maxest among
 3 numbers using classes.*/
 /*#include<iostream>
 using namespace std;
 class gretest
 {
-    private:
-    int large;
+     private:
+        int a,b,c,max;
     public:
-
-     void largenumber(int a,int b,int c)
-     {
-        if(a>b)
+        gretest(int x,int y,int z)
         {
-            if(a>c)
-                large=a;
-            else    
-                large=c;
+            a=x;
+            b=y;
+            c=z;
         }
-        else
+        void cal_data()
         {
-            if(b>c)
-                large=b;
-            else    
-                large=c;
+            if(a>b)
+            {
+                if(a>c)
+                    max=a;
+                else
+                    max=c;
+            }
+            else
+            {
+                if(b>c)
+                    max=b;
+                else
+                    max=c;
+            }
         }
-        cout<<"largenumber==>"<<large;
-     }
+        int getval()
+        {
+            return max;
+        }
+        int geta()
+        {
+            return a;
+        }
+        int getb()
+        {
+            return b;
+        }
+        int getc()
+        {
+            return c;
+        }
 };
 int main()
 {
-    gretest g;
-    int num1,num2,num3;
-    cout<<"enter three number";
-    cin>>num1>>num2>>num3;
-    g.largenumber(num1,num2,num3);
-    return 0;
+    gretest l1(4,6,7),l2(4,7,8);
+    l1.cal_data();
+    cout<<"maxest value from "<<l1.geta()<<","<<l1.getb()<<","<<l1.getc()<<"is"<<l1.getval();
+    l2.cal_data();
+    cout<<"maxest value from "<<l2.geta()<<","<<l2.getb()<<","<<l2.getc()<<"is"<<l2.getval();
 }*/
-
 /*8. Define a class Rectangle and define an instance member function to find the area of
 the rectangle.*/
 /*#include<iostream>
@@ -249,28 +331,32 @@ using namespace std;
 class ract
 {
     private:
-        float area;
+       int area,l,w;
+
     public:
-        void area_ract(float l,float w)
+    void setdata(int length,int width)
+    {
+            l=length;
+            w=width;
+    }
+       int getarea()
+       {
+         return area;
+       }
+        void area_ract()
         {
             area=l*w;
-            cout<<"area of "<<area;
         }
 };
 int main()
 {
     ract r;
-   float height,wigth;
-    cout<<"enter redious:";
-    cin>>height>>wigth;
-    r.area_ract(height,wigth);
+    int length,width;
+    cout<<"enter length & width:";
+    cin>>length>>width;
+    r.area_ract();
+    cout<<"area is a"<<r.getarea();
 }*/
-
-
-
-
-
-
 /*9. Define a class Circle and define an instance member function to find the area of the
 circle.*/
 /*#include<iostream>
@@ -279,11 +365,24 @@ class circle
 {
     private:
       float area;
+      int r;
     public:
-        void area_c(float r)
+    void setR(int data)
+    {
+        r=data;
+    }
+        void area_c()
         {
             area=3.14*r*r;
-            cout<<"area of circle==>"<<area;
+           
+        }
+       int  getR()
+        {
+            return r;
+        }
+         float getAREA()
+        {
+            return area;
         }
 };
 int main()
@@ -292,11 +391,11 @@ int main()
     float redious;
     cout<<"enter redious";
     cin>>redious;
-    c.area_c(redious);
+    c.setR(redious);
+    c.area_c();
+    cout<<"redious is a "<<c.getR()<<"area of circle is a:"<<c.getAREA()<<endl;
     return 0;
 }*/
-
-
 
 
 /*10. Define a class Area and define instance member functions to find the area of the
@@ -307,29 +406,98 @@ using namespace std;
 class Area
 {
     private: 
-        float areas;
-
+        float side;
+        float r;
+        float length,width;
     public:
-        void area(int r)
+    void setSIDE(float data)
+    {
+        side=data;
+    }
+    float getSIDE()
+    {
+        return side;
+    }
+     float areaofsqure()
         {
-            areas=r*r;
-            cout<<"area of squre==>"<<areas;
+            return side*side;
         }
-        void area(float l,float w)
+
+        void setlw(float l,float w)
         {
-            areas=l*w;
-            cout<<"area of rectangle==>"<<areas;
+            length=l;
+            width=w;
         }
-        void area(float r)
+        float areaofract()
         {
-            areas=3.14*r*r;
-            cout<<"area of circle==>"<<areas;
+            return  length*width; 
+        }         
+     void setR(float data)
+    {
+        r=data;
+    }
+       
+        float getR()
+        {
+            return r;
         }
+       float areaofcircle()
+        {
+           return 3.14*r*r;
+        }   
 };
 int main()
 {
     Area squre,ract,cir;
-    squre.area(4);
-    ract.area(3,5);
-    cir.area(3.4f);
+    squre.setSIDE(5);
+    cout<<"side is a:"<<squre.getSIDE()<<"area of squre is a:"<<squre.areaofsqure()<<endl;
+    ract.setlw(4,7);
+    cout<<"area of ractangle is a :"<<ract.areaofract()<<endl;
+    cir.setR(6);
+    cout<<"redious is a :"<<cir.getR()<<"area of circle is a:"<<cir.areaofcircle(); 
+}*/
+//best example of arrow operator
+
+
+/*#include<iostream>
+using namespace std;
+class shape
+{
+    private:
+        float area;
+    public :
+        void setdata(float data)
+        {
+            area=data;
+        }
+        void display()
+        {
+            cout<<"area is a : "<<area<<"\n";           
+        }
+};
+class circle
+{
+    shape  s;
+    float radious;
+    public:
+        void setradious(float val)
+        {
+            radious=val;
+        }
+        void area_circle()
+        {
+            s.setdata(3.14*radious*radious);
+        }
+        shape *  operator->()
+        {
+            return &s;
+        }
+};
+int main()
+{
+    circle c;
+    c.setradious(3.5);
+    c.area_circle();
+    c->display();
+    return 0;
 }*/

@@ -107,12 +107,11 @@ class time
         }
         void normalize()
         {
-            int temp,temp_mi;
-            temp=second;
+            minute=minute+second/60;
             second=second%60;
-            temp_mi=minute+temp/60;
-            minute=temp_mi%60;
-            hour=hour+temp_mi/60;
+            hour=hour+minute/60;
+            minute=minute%60;
+
         }
         time add(time s)
         {
@@ -129,12 +128,20 @@ int main()
     time t1,t2,t3;
     t1.setTime(3,67,90);
     t2.setTime(4,53,20);
+    cout<<"time t1 is a:";
     t1.showTime();
+    cout<<endl<<"time t2 is a:";
     t2.showTime();
     t1.normalize();
     t2.normalize();
+    cout<<endl<<"after normlized time:"<<endl;
+    t1.showTime();
+    t2.showTime();
+    cout<<endl<<"add two time:";
     t3=t1.add(t2);
+    t3.showTime();
     t3.normalize();
+    cout<<endl<<"after normlized time";
     t3.showTime();
     return 0;
 }*/
@@ -145,26 +152,36 @@ using namespace std;
 class cube
 {
     private:
-    float volume;
+    double side;
     public:
-    cube(float a)
+    cube(double a)
     {
         if(a<0)
         {
             a=-a;
         }
-        volume=a*a*a;
+        side=a;
     }
-    void showdata()
+    double getside()
     {
-        cout<<"volume is a"<<volume;
+        return side;
+    }
+    double    volumeofcube()
+    {
+        return side*side*side;
+    }
+    cube (){}
+    ~cube()
+    {
+        cout<<"distructor call"<<side<<endl;
     }
 };
 int main()
 {
-    cube c(-4.9f);
-    c.showdata();
-
+    cube c(4.9);//distructor call 2nd
+    cube d(4.6);//distructor call 1st
+    cout<<"side of cube is "<<c.getside()<<"volume of cube is a:"<<c.volumeofcube()<<endl;
+    return 0;
 }*/
 
 
@@ -172,20 +189,32 @@ int main()
 
 
 //4. Define a class Counter and Write a program to Show Counter using Constructor.
-/*class counter
+/*#include<iostream>
+using namespace std;
+class counter
 {
     private:
     int count;
     public:
     counter()
     {
-
+        count=0;
     }
-
+    void count_fun()
+    {
+        count++;
+    }
+    int getcount()
+    {
+        return count;
+    }
 };
 int main()
 {
     counter c;
+    c.count_fun();
+    cout<<"count is a"<<c.getcount();
+
 }*/
 
 /*5. Define a class Date and write a program to Display Dateand initialise date object
@@ -195,22 +224,24 @@ using namespace std;
 class Date
 {
     private:
-     int date;
+     int day,month,year;
     public:
-        Date(int value)
+        Date(int d,int m,int y)
         {
-            date=value;
+            day=d;
+            month=m;
+            year=y;
         }
         void showdata()
         {
-                cout<<"date is a "<<date;
+                cout<<"date is a:"<<day<<"/"<<month<<"/"<<year<<endl;
         }
 };
 int main()
 {
-    Date d(30);
+    Date d(30,05,2004);
     d.showdata();
-
+    return 0;
 }*/
 
 /*6. Define a class student and write a program to enter student details using constructor
@@ -265,8 +296,10 @@ class student
         int age;
 
     public:
-        student()
+        student(const char a[])
         {
+            strcpy(name,a);
+            cout<<"name:"<<name;
             cout<<"enter details of student";
             cout<<"*************************";
             cout<<"enter roll number";
@@ -284,7 +317,7 @@ class student
 };
 int main()
 {
-    student s;
+    student s("prity");
     s.showdata();
 }*/
 
@@ -297,10 +330,7 @@ using namespace std;
 class box
 {
     private:
-    float length;
-    float breadth;
-    float height,volume;
-
+    double length,breadth,height;
     public:
     box()
     {
@@ -311,20 +341,16 @@ class box
         cout<<"enter height";
         cin>>height;
     }
-    void processdata()
+    double area_box()
     {
-        volume=length*breadth*height;
-    }
-    void showdata()
-    {
-        cout<<"volume is a:"<<volume;
+        return length*breadth*height;
     }
 };
 int main()
 {
     box b;
-    b.processdata();
-    b.showdata();
+    cout<<"area of box is a:"<<b.area_box()<<endl;
+    return 0;
 }*/
 
 
@@ -346,20 +372,16 @@ class bank
             rate=r;
             no_year=n;
         }
-        void prodata()
+        float prodata()
         {
-            interest=(pri*rate*no_year)/100.00;
-        }
-        void showdata()
-        {
-            cout<<"simple interest "<<interest;
+            return (pri*rate*no_year)/100.00;
         }
 };
 int main()
 {
     bank b(3431,5,8);
     b.prodata();
-    b.showdata();
+    cout<<"simple interest "<<b.prodata();
 }*/
 
 
@@ -374,42 +396,52 @@ using namespace std;
 class Bill
 {
     private:
-    float bill;
+    int c_no;
+    char c_name[20];
+    char c_address[45];
+    int units;
+    double bill;
 
     public:
-       int get()
+       void get()
        {
-        float unit;
-        cout<<"enter unit";
-        cin>>unit;
-        return unit;
+        cout<<"Enter costomer id:";
+        cin>>c_no;
+         cout<<"\nEnter costomer name:";
+         cin.ignore();
+        cin.getline(c_name,20);
+         cout<<"\nEnter costomer address:";
+        cin.ignore();
+        cin.getline(c_address,20);
+        cout<<"\nEnter unit";
+        cin>>units;
        }
-       void calculatebill(int);
+       void calculatebill();
        void showdata()
        {
-        cout<<"bill is a"<<bill;
+        cout<<"costomer id:"<<c_no<<"\ncostomer name:"<<c_name<<"\ncostomer address :"<<c_address<<"unit is :"<<units<<"\nbill is a :"<<bill;
        }      
 };
-void Bill::calculatebill(int data)
+void Bill::calculatebill()
 {
-                switch(data<=100)
+                switch( units<=100)
                 {
                         case 1:
                         {
-                            bill=data*1.20;
+                            bill= units*1.20;
                             break;
                         }
                         case 0:
-                            switch(data<=200)
+                            switch( units<=200)
                             {
                                 case 1:
                                 {
-                                    bill=(data-100)*2+120;
+                                    bill=( units-100)*2+120;
                                     break;
                                 }
                                 case 0:
                                 {
-                                    bill=(data-200)*3+320;
+                                    bill=( units-200)*3+320;
                                     break;
                                 }
                             }
@@ -420,15 +452,15 @@ int main()
 {
     int  u;
     Bill b;
-    u=b.get();
-    b.calculatebill(u);
+    b.get();
+    b.calculatebill();
     b.showdata();
 }*/
 
 
 /*10. Define a class StaticCount and create a static variable. Increment this variable in a
 function and call this 3 times and display the result.*/
-#include<iostream>
+/*#include<iostream>
 using namespace std;
 class StaticCount
 {
@@ -453,4 +485,4 @@ int main()
     s1.incredata();
     s1.incredata();
     StaticCount::showdata();
-}
+}*/

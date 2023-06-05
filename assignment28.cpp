@@ -107,6 +107,14 @@ class subscript
                 cout<<"array index out of bound exption"<<endl;
             }
         }
+        subscript(int  a)
+        {
+            b[]=a;
+        }
+        operator=(subscript )
+        {
+
+        }
 };
 int subscript:: operator[](int data)
 {
@@ -125,7 +133,7 @@ int main()
     s.setarray(23,89);
     s.display(567);
     cout<<s[56]<<endl<<s[67];//s.operator[](4);
-    //b[20]=50;
+    s[20]=50;
 }*/
 
 /*4. Create a student class and overload new and delete operators as a member function
@@ -144,8 +152,7 @@ of the class.*/
 };
 int main()
 {
-    student s;
-    new student();
+    student *s= new student();
 
 }*/
 
@@ -287,24 +294,37 @@ class integer
     {
         num=v;
     }
-    integer operator~()
+    /*integer operator!()
     {
         integer temp;
-        temp.num=~num;
+        temp.num=-num;
         return temp;
     }
     void showdata()
     {
         cout<<endl<<"value is a:"<<num;
     }
+    integer(int a):num(a){}
+    integer(){}
+    int operator!()
+    {
+        return -num;
+    }
 };
 int main()
 {
-    integer i,i2;
+    /*integer i,i2;
     i.setdata(2);
-    i2=~i;
+    i2=!i;
     i.showdata();
     i2.showdata();
+
+    integer i=4;//second use
+    int x;
+    x=!i;
+    cout<<x;
+    int val=0;
+    cout<<endl<<val;
     return 0;
 }*/
 
@@ -325,28 +345,131 @@ class coordinate
             y=b;
             z=c;
         }
+        coordinate(coordinate &data)
+        {
+            cout<<"copy constructer call";
+            x=data.x;
+            y=data.y;
+            z=data.z;
+        }
         coordinate(){}
         void showdata()
         {
             cout<<"x-->"<<x<<"y-->"<<y<<"z-->"<<z<<endl;
         }
+        coordinate operator,(coordinate a)
+        {
+            cout<<", opearator call \n";
+            coordinate data;
+            data.x=a.z;
+            data.y=a.y;
+            data.z=a.x;
+            cout<<"caller object : "<<x<<"\n";
+            return data;
+        }
 };
 int main()
 {
-    coordinate c1(4,5,6),c2(5,7,8),c3(5,8,9);
+    coordinate c1(4,5,6),c2(5,7,8),c3(5,8,9),c4(3,5,6);
     //coordinate c3=(c1,c2);
-    c3=(c1,c2);
+    c3=(c1,c2,c4);
+    cout<<"c1 data: \n";
+    cout<<"***************************";
     c1.showdata();
+    cout<<"c2 data: \n";
+    cout<<"*****************************";
     c2.showdata();
+    cout<<"c3 data: \n";
+    cout<<"****************************";
     c3.showdata();
     return 0;
 }*/
 
 /*9. Create an Integer class that contains int x as an instance variable and overload
-casting int() operator that will type cast your Integer class object to int data type.
+casting int() operator that will type cast your Integer class object to int data type.*/
+/*#include<iostream>
+using namespace std;
+class doller;
+class rupee
+{
+    float r;
+    public:
+     int getR()
+    {
+        return r;
+    }
+    rupee(float data)
+    {
+        cout<<"perameterized  constructor call for rupee\n";
+        r=data;
+    }
+    operator float()//return type not mention
+    {
 
-
-10. Create a Distance class having 2 instance variable feet and inches. Also create
+        cout<<"casting operator call for rupee"<<endl;
+        return r;
+    }
+    void showdata()
+    {
+        cout<<"data is a-->"<<r<<"\n";
+    }
+    rupee(){cout<<"default constructor call for rupee\n";}
+    /*operator dollar();//A use but that is declar after//but that not create object
+    {
+        cout<<"convert from r to dolar\n";
+        return r/78.00;
+    }
+};
+class dollar
+{
+    
+    float d;
+    public:
+    dollar(){cout<<"default constructor call for A\n";}
+   dollar(float data)
+    {
+        cout<<"paramiterized constructor call for A\n";
+        d=data;
+    }
+    dollar(rupee ru)
+    {
+        cout<<"convert rupee to dollar by using constructor\n";
+        d=ru.getR()/78.00;
+    }
+    operator float()//return type not mention,you can declare friend function that class
+    {
+        cout<<"casting operator call for dollar\n"<<endl;
+        return d;
+    }
+    void showdata()
+    {
+        cout<<"data is a-->"<<d<<"\n";
+    }
+    operator rupee()
+    {
+        cout<<"convert from dolar to rupee\n";
+        return d*78;//peramiterized constructor call
+    }
+};
+int main()
+{
+    
+    float x=500;
+    float y=6;
+    dollar a=x;
+    a.showdata();
+    x=(float)a;
+    rupee v=y;
+    v.showdata();
+    y=(float)v;//type casting 
+    v=a;//dolar to rupee
+    a.showdata();
+    v.showdata();
+    a=v;//rupee to dolar
+    a.showdata();
+    return 0;
+}*/
+/*10. Create a Distance class having 2 instance variable feet and inches. Also create
 default constructor and parameterized constructor takes 2 variables . Now overload ()
 function call operator that takes 3 arguments a , b and c and set feet = a + c + 5 and
 inches = a+b + 15.*/
@@ -416,10 +539,15 @@ class mark
         {
             cout<<"marks is a:"<<marks;
         }
+        mark  *  operator->()
+        {
+            return this; 
+        }
 };
 int main()
 {
     mark m(56);
-    mark *p=&m;
-    p->showdata();
+   // mark *p=&m;//yeh nhi karna hai toh bhi arrow operator chale
+    m->showdata();
+    m.showdata();
 }*/

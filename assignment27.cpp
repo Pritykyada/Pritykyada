@@ -1,5 +1,5 @@
 //overload c3=-C1+C2;
-/*#include<iostream>
+#include<iostream>
 using namespace std;
 class student
 {
@@ -12,15 +12,14 @@ class student
             cout<<endl<<"peramiterized constructor call"<<endl;
             a=s;
             b=n;
-        }
-        
+        }        
        student operator-()
        {
             cout<<"-operator overload"<<endl;
-            student temp;
+            student temp,t;
             temp.a=-a;
             temp.b=-b;
-            return temp;
+            return  a>0?temp:t;
        }
        student (const student &c)
         {
@@ -30,12 +29,11 @@ class student
         }
        student operator+(student s)
        {
-        
-            student temp;
+            student temp,t;
             cout<<"+ operator call"<<endl;
             temp.a=a+s.a;
             temp.b=b+s.b;
-            return temp;
+            return a>0? temp:t;//copy constructor call 
        }
        void showdata()
        {
@@ -51,7 +49,6 @@ class student
       }
       student operator++()
       {
-
         student temp;
         temp.a=++a;
         temp.b=++b;
@@ -74,7 +71,6 @@ istream & operator>>(istream &in,student &data)
         cout<<endl<<"enter b:";
         in>>data.b;
         return in;
-
 }
 int main()
 {
@@ -84,21 +80,21 @@ int main()
     student c2=c1;
     cout<<" c2 data:";
     c2.showdata();
-    cout<<endl<<" after addition  data:";
+   cout<<endl<<" after addition  data:"<<endl;
    // student c3=c5+c4;
-    student c3=-c1+c2;
+    student c3=-c1+c2;//c2 first execute
     c3.showdata();
     cout<<endl<<" pre incriment  data:";
-    (++c3).showdata();
+   // (++c3).showdata();
     cout<<endl<<" post incriment  data:"<<endl;
-    cout<<c3<<(c3++);
+    cout<<c3 <<"hello "<<endl<<c3++;
     cout<<endl;
     (c3++).showdata();
     c3.showdata();
     cout<<"take input from user";
     cin>>c4>>c5;
     cout<<c4<<c5;
-}*/
+}
 
 /*Assignment - 27 A Job Ready Bootcamp in C++, DSA and IOT MySirG
 Operator overloading and friend function
@@ -147,23 +143,37 @@ class complex
         temp.num2=num2*b.num2;
         return temp;
     }
-   bool operator==(complex c)
+   int operator==(complex c)
    {
-        return  num1==c.num1 && num2==c.num2;
+        if(num1==c.num1)
+        {
+            if ( num2==c.num2)
+            {
+                return 1;
+            }
+        }    
+        return 0;
    }
 };
 int main()
 {
-    complex c1(4,6),c2(5,6),c3,c4,c5;
+    complex c1(4,6),c2(4,6);
     c1.showdata();
     c2.showdata();
-    c3=c1+c2;
+    complex c3=c1+c2;
     c3.showdata();
-    c4=c1-c2;
+    complex c4=c1-c2;
     c4.showdata();
-    c5=c1*c2;
+   complex c5=c1*c2;
     c5.showdata();
-    cout<<"comparison is a:"<<(c1==c2);
+    if (c1==c2)
+    {
+        cout<<"both object equal"<<endl;
+    }
+    else
+    {
+        cout<<"both object is not equal"<<endl;
+    }
 }*/
 
 // 2. Write a C++ program to overload unary operators that is increment and decrement
@@ -174,14 +184,18 @@ class unary
     private:
         int n1,n2;
     public:
-        unary(){}
+        unary(){
+            cout<<"default constructor call "<<endl;
+        }
         unary(int x,int y)
         {
+            cout<<"parameterized constructor call"<<endl;
             n1=x;
             n2=y;
         }
       unary operator++()
         {
+            cout<<"pre insriment ++ operator call"<<endl;
             unary temp;
             temp.n1=++n1;
             temp.n2=++n2;
@@ -193,36 +207,35 @@ class unary
         }
         unary operator--()
         {
+            cout<<"pre dicriment  -- call"<<endl;
             unary temp;
             temp.n1=--n1;
             temp.n2=--n2;
             return temp;
         }
-        friend unary operator++(unary,int);
-      friend  unary operator--(unary ,int);
-
-
+      unary operator--(int  p)
+        {
+            cout<<"post decriment -- call"<<endl;
+        unary temp;
+        temp.n1=n1--;
+        temp.n2=n2--;
+        return temp;
+        }
+    unary operator++(int p)
+        {
+        cout<<"post incriment ++ call"<<endl;
+        unary temp;
+        temp.n1=n1++;
+        temp.n2=n2++;
+        return temp;
+    }
 };
-unary operator--(unary y,int  p)
-{
-    unary temp;
-    temp.n1=y.n1--;
-    temp.n2=y.n2--;
-    return temp;
-}
-unary operator++(unary c,int p)
-{
-    cout<<"i am frienf function";
-    unary temp;
-    temp.n1=c.n1++;
-    temp.n2=c.n2++;
-    return temp;
-}
+
 int main()
 {
-    unary u1(4,7),u2,u3,u4,u5;
+    unary u1(4,7),u2(0,0),u3,u4,u5;
     u1.showdata();
-    u2=++u1;
+    u2++=++u1;
     u1.showdata();
     u2.showdata();
     u3=u1++;
@@ -294,27 +307,27 @@ public:
 public:   
     int operator==(time y)
         {
-            cout<<"==============================="<<endl;
-            if(hour==y.hour)
+            int sum_t1=hour*3600+minute*60+second;
+            int sum_t2=y.hour*3600+y.minute*60+y.second;
+            if(sum_t1==sum_t2)
             {
-                if(minute==y.minute)
-                {
-                    if(second==y.second)
-                    {
-                        return 1;
-                    }
-                }
+                return 1;
             }
             return 0;
         }
     bool operator>(time &data);
-    friend istream & operator>>(istream &,time &);
-    friend ostream & operator<<(ostream &,time &);
-
-   
+    friend istream &  operator>>(istream &,time &);
+    friend ostream & operator<<(ostream &,time &);   
+    friend  void validation(time &p)
+    {
+        if(p.hour>=25)
+        {
+            cout<<"====================================="<<endl;
+            cout<<"invalid time:"<<endl;
+            exit(0);
+        }  
+    }
 };
-
-
 istream & operator>>(istream &cin,time &t)
 {
     cout<<"enter hour:";
@@ -323,7 +336,13 @@ istream & operator>>(istream &cin,time &t)
     cin>>t.minute;
     cout<<"enter second:";
     cin>>t.second;
+    t.minute=t.minute+t.second/60;
+    t.second=t.second%60;
+    t.hour=t.hour+t.minute/60;
+    t.minute=t.minute%60;
+    validation(t);
     return cin;
+
 }
 ostream & operator<<(ostream &cou,time &p)
 {
@@ -363,17 +382,20 @@ bool time::operator>(time &data)
 int main()
 {
     time t1, t2;
-    bool a;
     cout<<"enter first time"<<endl;
     cout<<"==============================="<<endl;
     cin>>t1;
+    cout<<endl;
     cout<<"enter second time"<<endl;
     cout<<"==============================="<<endl;
     cin>>t2;
-    cout<<" first time:";
+    cout<<endl <<"==============================="<<endl;
+    cout<<" first time:  ";
     cout<<t1;
-    cout<<" second time:";
+    cout<<" second time: ";
     cout<<t2;
+    cout<<endl <<"==============================="<<endl;
+    cout<<"result of operation: "<<endl;
    if(t1==t2)
    {
     cout<<"time t1 and t2 is equal"<<endl;
@@ -406,30 +428,46 @@ class number
     private:
         int x,y,z;
     public:
-    void setdata(int a,int b,int c)
+    void setdata()
     {
-        x=a;
-        y=b;
-        z=c;
+       cout<<"enter x:";
+       cin>>x;
+       cout<<endl<<"enter y:";
+       cin>>y;
+        cout<<endl<<"enter z:";
+       cin>>z;
+      if(x<0)
+       {
+            x=-x;
+       }
+       if(y<0)
+       {
+            y=-y;
+       }
+       if(z<0)
+       {
+            z=-z;
+       }
     }
     void showdata()
     {
-        cout<<"x==>"<<x<<"y==>"<<y<<"==>"<<z;
+        cout<<"x :"<<x<<"   y :"<<y<<" z :"<<z;
     }
-    number oparator-()
+    void operator-()
     {
-        number u;
-        u.x=-x;
-        u.y=-y;
-        u.z=-z;
-        return u;
+        x=-x;
+        y=-y;
+        z=-z;
     }
 };
 int main()
 {
     number n,n1;
-    n.setdata(3,6,7);
-    n1=-n;
+    n.setdata();
+    cout<<"Number are :";
+    n.showdata();
+    -n;
+    cout<<endl<<"negate the numbers"<<endl;
     n.showdata();
 }*/
 
@@ -443,10 +481,13 @@ class str
 {
     private:
         char name[18];
+        int size;
     public:
-        void setdata(const char *a)
+        void setdata()
         {
-           strcpy(name,a);
+           cout<<"Enter string"<<endl;
+           cin>>name;
+           size=strlen(name);
         } 
        str operator+(str b)
        {
@@ -457,35 +498,46 @@ class str
        }
        void showdata()
        {
-            cout<<"name==>"<<name;
+            cout<<"String is :"<<name<<endl;
        }
-       void operator==(str n)
+       int operator==(str &n);
+};
+int str::operator==(str &n)
        {
-            if(strcmp(name,n.name))
-            {
-                cout<<"both strings not equal";
-            }
+        int data=size>n.size?size:n.size;
+        for(int i=0;i<=data+1;i++)
+        {
+            if(name[i]==n.name[i])
+            {}
             else
             {
-                cout<<"both strings equal";
+                return 1;
             }
+        }
+        return 0;
        }
-};
 int main()
 {
     str s1,s2,s3;
-    char str[]="prty";
-    char str1[]="prty";
-    s1.setdata("prity");
-    s2.setdata(str1);
-    s3=s1+s2;
-    cout<<"s1==>:";
+    s1.setdata();
+    s2.setdata();
+    cout<<"********************************"<<endl;
     s1.showdata();
-    cout<<endl<<"s2==>:";
     s2.showdata();
-    cout<<endl<<"concate string:";
+    s3=s1+s2;
+    cout<<"********************************"<<endl;
+    cout<<endl<<"concate string:"<<endl;
     s3.showdata();
-    s1==s2;
+    cout<<"*********************************"<<endl;
+    if((s1==s2)==0)
+    {
+        cout<<"both string are equal"<<endl;
+    }
+    else
+    {
+        cout<<"both string not equal"<<endl;
+    }
+    return 0;
 }*/
 /*7. Define a C++ class fraction
 class fraction
@@ -513,35 +565,37 @@ class fraction
     }
     fraction  operator++()
     {
-        fraction temp;
-        temp.numerator=++numerator;  
-        temp.denominator=++denominator;
+        ++numerator;  
+        ++denominator;
+        return *this;
+    }
+     fraction operator++(int p)
+    { 
+        fraction temp=*this;
+        numerator++;
+       denominator++;
         return temp;
     }
-    friend  fraction operator++(fraction &,int);
-    friend void operator>>(istream &,fraction &);
-    friend void operator<<(ostream &,fraction &);
+
+    friend istream & operator>>(istream &,fraction &);
+    friend ostream & operator<<(ostream &,fraction &);
 
 };
-void operator<<(ostream &out,fraction &data)
+ostream  & operator<<(ostream &out,fraction &data)
 {
     out<<data.numerator<<"/"<<data.denominator<<endl;
+    return out;
 
 }
-void operator>>(istream &c,fraction &a)
+istream & operator>>(istream &c,fraction &a)
 {
     cout<<endl<<"numerator:";
     c>>a.numerator;
     cout<<endl<<"denominator:";
     c>>a.denominator;
+    return c;
 }
-fraction operator++(fraction &s ,int)
-{ 
-    fraction temp;
-    temp.numerator=s.numerator++;
-    temp.denominator=s.denominator++;
-    return temp;
-}
+
 int main()
 {
     fraction f,f2;
@@ -645,9 +699,10 @@ class mystring
     private:
     char str[100];
     public:
-    void setdata(char b[])
+    void inputdata()
     {
-       strcpy( str,b);
+      cout<<"Enter string : ";
+      cin>>str;
     }
     mystring operator!();
     void  showdata()
@@ -657,29 +712,36 @@ class mystring
 };
     mystring mystring::operator!()
     {
-        mystring temp;
-        strcpy(temp.str,str);
-        for(int i=0;temp.str[i];i++)
+        
+        for(int i=0;str[i];i++)
         {
-            if(temp.str[i]>='A' &&  temp.str[i]<='Z')
+            if(str[i]>='A' &&   str[i]<='Z')
             {
-                temp.str[i]=temp.str[i]+32;
+                 str[i]= str[i]+32;
             }
-            if(temp.str[i]>='a' && temp.str[i]<='z')
+            else
             {
-               temp.str[i]=temp.str[i]-32;
+                if( str[i]>='a' &&  str[i]<='z')
+                {
+                 str[i]= str[i]-32;
+                }
             }
         }
-        return temp;      
     }
 int main()
 {
     mystring s1,s2;
-    char a[]="prity";
-    s1.setdata(a);
+    s1.inputdata();
+    cout<<"----------------------------------\n";
+    cout<<"String is a :";
+    s1.showdata();
     s2=!s1;
+    cout<<"\n----------------------------------\n";
+    cout<<"after perform ! operation\n";
     s2.showdata();
-    s1.showdata();    
+    cout<<"\n----------------------------------\n";
+    s1.showdata();
+    //s1.showdata();    
 }*/
 
 
